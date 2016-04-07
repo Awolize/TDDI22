@@ -1,0 +1,19 @@
+.Godkända:
+
+okej
+okej-bra,
+okej-bra-fint
+'okej'.
+"bra":
+"("okej-bra's;
+'("(okej-bra's?)")'!
+
+.Ej.godkända:
+
+"(fel's's)"   // dubbel.engelsk.genetivändelse
+fel--nej      // dubbel.bindestreck
+fel-nej--ajaj // dubbel.bindestreck.efter.redan.godkänt.ensamt.bindestreck
+(fel()nej)    // skräptecken.mitt.i.ordet
+"(((aj)!?"    // för.få.bokstäver
+"("felnej)#   // ogiltigt.tecken.i.slutet
+!(fel-nej)!   // ogiltigt.tecken.i.början

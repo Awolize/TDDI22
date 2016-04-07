@@ -1,0 +1,6 @@
+<html>
+<head>
+<title> The page title! </title>
+</head>
+<body id="my-body"><h1>The Page: </h1><p>This is the page body. </p></body>
+</html>
