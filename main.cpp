@@ -9,27 +9,49 @@ using namespace std;
 
 void clean_word(string & word)
 {
+    char gen_s = 's'; 
+    for (unsigned int i{0}; i < word.length(); i++)
+    {
+	if(word[i] == '\'' && word[i+1] == 's')
+	{
+	    word.erase(remove(word.begin(), word.end(), gen_s), word.end());
+	}
+	else if(word[i] == '-' && word[i+1] == '-')
+	{
+	    word.erase(unique(word.begin(), word.end()), word.end());
+	}
+    }
     word.erase(remove_if(word.begin(), word.end(), [](char c)
 			 {
 			     return (c == '/') || (c == '!') || (c == '"') || (c == '\'') || (c == '(') || (c == ')') || (c == '?') || (c == ';') || (c == ',') || (c == ':')  || (c == '.');
 			 }), word.end());
+    
 }
 bool valid_word(string word)
 {
+    
     if (word.size() < 3)
+    {
 	return false;
+    }
     
     bool is_alpha{true};
+    
     for_each(word.begin(), word.end(), [&is_alpha](char c)
 	     {
-		 if (!isalpha(c) || c != '-')
+		 if (!isalpha(c))
+		 {
 		     is_alpha = false;
+		     if (c == '-')
+			 is_alpha= true;
+		 }
 	     });
-
+    
     if (!is_alpha)
 	return false;
+    else
+	return true;
 
-return true;
     }
 
 int main(int argc, char* argv[])
@@ -62,7 +84,7 @@ int main(int argc, char* argv[])
 */
     string filename = argv[1];
     if (std::string::npos != filename.find(".txt"))
-	cout << "Found .txt" << endl;
+	cout << "Found .txt" << endl << endl;
 
     ifstream fin(filename); 
     vector<string> words;
@@ -76,11 +98,18 @@ int main(int argc, char* argv[])
 	});
 
     fin.close();
+    /*
+    for(int i{0}; i < words.size(); i++)
+	cout << words.at(i) << endl;
+    */
     
     for_each(words.begin(), words.end(), [](string word) {
 	    cout << word << endl;
+	    
 	});
-
+    Wordlist test;
+    test.Insertword();
+    test.outputwords();
     return 0;
 }
 
