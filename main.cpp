@@ -25,18 +25,13 @@ void clean_word(string & word)
 			 {
 			     return (c == '/') || (c == '!') || (c == '"') || (c == '\'') || (c == '(') || (c == ')') || (c == '?') || (c == ';') || (c == ',') || (c == ':')  || (c == '.');
 			 }), word.end());
-    
+    transform(word.begin(), word.end(), word.begin(), ::tolower);
 }
 bool valid_word(string word)
 {
-    
     if (word.size() < 3)
-    {
 	return false;
-    }
-    
     bool is_alpha{true};
-    
     for_each(word.begin(), word.end(), [&is_alpha](char c)
 	     {
 		 if (!isalpha(c))
@@ -46,54 +41,55 @@ bool valid_word(string word)
 			 is_alpha= true;
 		 }
 	     });
-    
     if (!is_alpha)
 	return false;
     else
 	return true;
-
     }
+
+void Communism()
+{
+    cout << endl <<     "▄▀▀▀▀ ▄▀▀▀▀▄  █    █ █    █ █    █ █    █ ▅ ▄▀▀▀▀ █    █ \n█     █    █  █▚  ▞█ █▚  ▞█ █    █ █▚   █   █     █▚  ▞█\n█     █    █  █ ▚▞ █ █ ▚▞ █ █    █ █ ▚  █ █ ▀███▄ █ ▚▞ █\n█     █    █  █    █ █    █ █    █ █  ▚ █ █     █ █    █\n▀▄▄▄▄ ▀▄▄▄▄▀  █    █ █    █ ▀▄▄▄▄▀ █   ▚█ █ ▄▄▄▄▀ █    █" << endl <<endl;
+}
 
 int main(int argc, char* argv[])
 {
-
-/* 
-   --- ARG Table ---
+/*
+    int outputchoser {0};
+    //  --- ARG Table ---
     if (argc == 1);
-        cout << "Error: No arguments given." << endl;
-        cout << "Usage: a.out FILE [-a] [-f] [-o N]" << endl;
-    else if (argc == 2)
-        cout << "Error: Second argument missing or invalid." << endl;
-        cout << "Usage: a.out FILE [-a] [-f] [-o N]" << endl;
-    else if (arc == 3)
+	throw invalid_argument("\nError: argument missing or invalid. \n" 
+			       "Usage: a.out FILE [-a] [-f] [-o]");
+    if (argc == 2)
+	throw invalid_argument("\nError: Second argument missing or invalid. \n" 
+			       "Usage: a.out FILE [-a] [-f] [-o]");
+    else if (argc == 3)
     {
-        if (argv == -a);
-        else if (argv == -f);
-        else error
+        if (argv[3] == "-a")
+	    outputchoser = 1;
+	else if (argv[3] == "-o")
+	    outputchoser = 2;
+	else if (argv[3] == "-f")
+	    outputchoser = 3;
+	else
+	    throw invalid_argument("\nError: Third argument missing or invalid. \n" 
+				    "Usage: a.out FILE [-a] [-f] [-o]");
     } 
-    else if (argc == 4)  
-    { 
-         if (argv == -o);
-         {
-   	     if (argv == int);
-	     else error;
-         }
-	 else error
-    }
-    else error;
 */
+
     string filename = argv[1];
     if (std::string::npos != filename.find(".txt"))
 	cout << "Found .txt" << endl << endl;
 
     ifstream fin(filename); 
     vector<string> words;
-
-    for_each(istream_iterator<string>(fin), istream_iterator<string>(), [&words](string word) {
+    Wordlist test;
+    for_each(istream_iterator<string>(fin), istream_iterator<string>(), [&words,&test](string word) {
 	    clean_word(word);
 	    if(valid_word(word))
 	    {
 		words.push_back(word);
+		test.insertword(word);
 	    }
 	});
 
@@ -101,15 +97,17 @@ int main(int argc, char* argv[])
     /*
     for(int i{0}; i < words.size(); i++)
 	cout << words.at(i) << endl;
-    */
+    
     
     for_each(words.begin(), words.end(), [](string word) {
 	    cout << word << endl;
 	    
 	});
-    Wordlist test;
-    test.Insertword();
-    test.outputwords();
+    */
+    
+    test.outputwordsalfa();
+    Communism();
+    test.outputwordsbyvalue();
     return 0;
 }
 

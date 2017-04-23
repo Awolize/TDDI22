@@ -7,19 +7,61 @@
 
 using namespace std;
 
-void Wordlist::Insertword()
+void Wordlist::insertword(string word)
 {
-    Wordsinlist[1200] = "kristoffer";
-    Wordsinlist[1201] = "kristoffer1";
-    Wordsinlist[1202] = "kristoffer2";
-    Wordsinlist[1203] = "kristoffer3";
-    Wordsinlist[1204] = "kristoffer4";
+    insertwordfreq(word);
+    std::map<string,int>::iterator it;
+    it = Wordsinlist.find(word);
+    if((it == Wordsinlist.end()))
+    {
+	Wordsinlist[word] = sizeofmap;
+	sizeofmap++;
+    }
 }
 
-void Wordlist::outputwords()
+void Wordlist::insertwordfreq(string word)
 {
-    for( map<int, string>::iterator ii=Wordsinlist.begin(); ii!=Wordsinlist.end(); ++ii)
+    freqlist[freqtempnr] = word;
+    freqtempnr++;
+    
+}
+
+void Wordlist::reversinglist()
+{
+    for( map<string, int>::iterator iii=Wordsinlist.begin(); iii!=Wordsinlist.end(); ++iii)
+    {
+	reverselist[(*iii).second] = (*iii).first;
+    }
+}
+
+
+void Wordlist::outputwordsalfa()
+{
+    for( map<string, int>::iterator ii=Wordsinlist.begin(); ii!=Wordsinlist.end(); ++ii)
     {
 	cout << (*ii).first << ": " << (*ii).second << endl;
     }
 }
+ 
+void Wordlist::outputwordsbyvalue()
+{   
+    reversinglist();
+    for( map<int, string>::iterator iiii=reverselist.begin(); iiii!=reverselist.end(); ++iiii)
+    {
+	cout << (*iiii).first << ": " << (*iiii).second << endl;
+    }
+}
+
+void Wordlist::outputwordsbyfreq()
+{
+    for( map<int, string>::iterator iiiii=freqlist.begin(); iiiii!=freqlist.end(); ++iiiii)
+    {
+	cout << (*iiiii).first << ": " << (*iiiii).second << endl;
+    }
+}
+
+
+/*
+
+
+*/

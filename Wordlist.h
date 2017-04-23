@@ -8,18 +8,33 @@
 #include <algorithm>
 #include <map>
 
-
 class Wordlist
 {
 public:
-    void Insertword();
-    void outputwords();
-    
-
+    void insertword(std::string);
+    void outputwordsalfa();
+    void outputwordsbyvalue();
+    void outputwordsbyfreq();
 private:
-    std::map<int, std::string> Wordsinlist;
+    void reversinglist();
+    void insertwordfreq(std::string);
+    std::map<int, std::string> freqlist;
+    std::map<int, std::string> reverselist;
+    std::map<std::string, int> Wordsinlist;
+    int sizeofmap {0};
+    int freqtempnr {0};
 };
 
 
 
 #endif
+
+/*      
+   ▄▀▀▀▀ ▄▀▀▀▀▄  █    █ █    █ █    █ █    █ ▅ ▄▀▀▀▀ █    █
+   █     █    █  █▚  ▞█ █▚  ▞█ █    █ █▚   █   █     █▚  ▞█
+   █     █    █  █ ▚▞ █ █ ▚▞ █ █    █ █ ▚  █ █ ▀███▄ █ ▚▞ █
+   █     █    █  █    █ █    █ █    █ █  ▚ █ █     █ █    █  
+   ▀▄▄▄▄ ▀▄▄▄▄▀  █    █ █    █ ▀▄▄▄▄▀ █   ▚█ █ ▄▄▄▄▀ █    █
+*/
+     
+     
