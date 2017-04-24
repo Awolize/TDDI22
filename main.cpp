@@ -9,24 +9,33 @@ using namespace std;
 
 void clean_word(string & word)
 {
-    char gen_s = 's'; 
+    size_t str_f = word.find_first_not_of("\"\'(");
+    word.erase(0, str_f);
+    size_t str_l = word.find_last_not_of("!?;,:.\"\')");
+    word.erase(str_l+1, word.length());    
+
+    char gen_s = 's';  
     for (unsigned int i{0}; i < word.length(); i++)
     {
 	if(word[i] == '\'' && word[i+1] == 's')
 	{
-	    word.erase(remove(word.begin(), word.end(), gen_s), word.end());
+	    if(!(i+3 > word.length()))
+	    {
+		if(!(word[i+2] == '\'' && word[i+3] == 's'))
+		    word.erase(remove(word.begin(), word.end(), gen_s), word.end());	    
+	    }
+	    else
+		word.erase(remove(word.begin(), word.end(), gen_s), word.end());
 	}
+
 	else if(word[i] == '-' && word[i+1] == '-')
 	{
-	    word.erase(unique(word.begin(), word.end()), word.end());
+	    word += "(!?;,:.\"\')";
 	}
     }
-    word.erase(remove_if(word.begin(), word.end(), [](char c)
-			 {
-			     return (c == '/') || (c == '!') || (c == '"') || (c == '\'') || (c == '(') || (c == ')') || (c == '?') || (c == ';') || (c == ',') || (c == ':')  || (c == '.');
-			 }), word.end());
     transform(word.begin(), word.end(), word.begin(), ::tolower);
 }
+
 bool valid_word(string word)
 {
     if (word.size() < 3)
@@ -34,18 +43,18 @@ bool valid_word(string word)
     bool is_alpha{true};
     for_each(word.begin(), word.end(), [&is_alpha](char c)
 	     {
-		 if (!isalpha(c))
+		 if (!(isalpha(c)) && is_alpha)
 		 {
 		     is_alpha = false;
 		     if (c == '-')
-			 is_alpha= true;
+			 is_alpha = true;
 		 }
 	     });
     if (!is_alpha)
 	return false;
     else
 	return true;
-    }
+}
 
 void Communism()
 {

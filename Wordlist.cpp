@@ -28,40 +28,34 @@ void Wordlist::insertwordfreq(string word)
 
 void Wordlist::reversinglist()
 {
-    for( map<string, int>::iterator iii=Wordsinlist.begin(); iii!=Wordsinlist.end(); ++iii)
+    for( map<string, int>::iterator it=Wordsinlist.begin(); it!=Wordsinlist.end(); ++it)
     {
-	reverselist[(*iii).second] = (*iii).first;
+	reverselist[(*it).second] = (*it).first;
     }
 }
 
 
 void Wordlist::outputwordsalfa()
 {
-    for( map<string, int>::iterator ii=Wordsinlist.begin(); ii!=Wordsinlist.end(); ++ii)
+    for( map<string, int>::iterator it=Wordsinlist.begin(); it!=Wordsinlist.end(); ++it)
     {
-	cout << (*ii).first << ": " << (*ii).second << endl;
+	cout << (*it).first << ": " << (*it).second << endl;
     }
 }
  
 void Wordlist::outputwordsbyvalue()
 {   
     reversinglist();
-    for( map<int, string>::iterator iiii=reverselist.begin(); iiii!=reverselist.end(); ++iiii)
+    for( map<int, string>::iterator it=reverselist.begin(); it!=reverselist.end(); ++it)
     {
-	cout << (*iiii).first << ": " << (*iiii).second << endl;
+	cout << (*it).first << ": " << (*it).second << endl;
     }
 }
 
 void Wordlist::outputwordsbyfreq()
 {
-    for( map<int, string>::iterator iiiii=freqlist.begin(); iiiii!=freqlist.end(); ++iiiii)
+    for( map<int, string>::iterator it=freqlist.begin(); it!=freqlist.end(); ++it)
     {
-	cout << (*iiiii).first << ": " << (*iiiii).second << endl;
+	cout << (*it).first << ": " << (*it).second << endl;
     }
 }
-
-
-/*
-
-
-*/
