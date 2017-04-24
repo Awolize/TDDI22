@@ -9,17 +9,19 @@ using namespace std;
 
 void Wordlist::insertword(string word)
 {
-    // insertwordfreq(word);
     std::map<string,int>::iterator it;
-    it = Wordsinlist.find(word);
+    it = Wordsinlist.find(word); 
     if((it == Wordsinlist.end()))
     {
-	Wordsinlist[word] = sizeofmap;
-	
+	Wordsinlist[word] = sizeofmap;	
 	sizeofmap++;
     }
-    freqlist[temptest].push_back(word);
-    temptest++;
+    if (std::find(freq.at(0).first(), freq.at(0).end(), word) != freq.at(0).first())
+    {
+	cout << "pepesi";
+    }
+    else 
+	freq.push_back(std::make_pair(word, 1)); 
 }
 
 
@@ -51,12 +53,8 @@ void Wordlist::outputwordsbyvalue()
 
 void Wordlist::outputwordsbyfreq()
 {
-    
-    for( map<int, std::vector<std::string >>::iterator it=freqlist.begin(); it!=freqlist.end(); it++)
-    {
-	cout << (*it).first << ": " << (*it).second.at(0) << endl;
-    }
 
+    cout << freq.at(0).second;
 
 }
 
