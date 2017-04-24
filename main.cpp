@@ -91,13 +91,13 @@ int main(int argc, char* argv[])
 	cout << "Found .txt" << endl << endl;
 
     ifstream fin(filename); 
-    vector<string> words;
+    // vector<string> words;
     Wordlist test;
-    for_each(istream_iterator<string>(fin), istream_iterator<string>(), [&words,&test](string word) {
+    for_each(istream_iterator<string>(fin), istream_iterator<string>(), [&test](string word) {
 	    clean_word(word);
 	    if(valid_word(word))
 	    {
-		words.push_back(word);
+		//words.push_back(word);
 		test.insertword(word);
 	    }
 	});
@@ -117,6 +117,8 @@ int main(int argc, char* argv[])
     test.outputwordsalfa();
     Communism();
     test.outputwordsbyvalue();
+    Communism();
+    test.outputwordsbyfreq();
     return 0;
 }
 
