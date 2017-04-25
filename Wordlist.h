@@ -17,22 +17,12 @@ public:
     void outputwordsbyfreq();
 private:
     void reversinglist();
-    std::vector<std::pair<std::string, int>> freq;
+    std::vector<std::pair<int, std::string>> freq;
     std::map<int, std::string> reverselist;
     std::map<std::string, int> Wordsinlist;
-    int sizeofmap {0};
+    int sizeofmap {1};
 };
 
 
 
 #endif
-
-/*      
-   ▄▀▀▀▀ ▄▀▀▀▀▄  █    █ █    █ █    █ █    █ █ ▄▀▀▀▀ █    █
-   █     █    █  █▚  ▞█ █▚  ▞█ █    █ █▚   █ █ █     █▚  ▞█
-   █     █    █  █ ▚▞ █ █ ▚▞ █ █    █ █ ▚  █ █ ▀███▄ █ ▚▞ █
-   █     █    █  █    █ █    █ █    █ █  ▚ █ █     █ █    █  
-   ▀▄▄▄▄ ▀▄▄▄▄▀  █    █ █    █ ▀▄▄▄▄▀ █   ▚█ █ ▄▄▄▄▀ █    █
-*/
-     
-     

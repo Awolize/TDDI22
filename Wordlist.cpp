@@ -4,26 +4,43 @@
 #include <iostream>
 #include <memory>
 #include <stdexcept>
+#include <algorithm>
 
 using namespace std;
 
 void Wordlist::insertword(string word)
 {
-    std::map<string,int>::iterator it;
+    bool truetyp{true};
+    map<string,int>::iterator it;
     it = Wordsinlist.find(word); 
     if((it == Wordsinlist.end()))
     {
 	Wordsinlist[word] = sizeofmap;	
 	sizeofmap++;
     }
-    if (std::find(freq.at(0).first(), freq.at(0).end(), word) != freq.at(0).first())
+    
+    if (freq.size() == 0)
     {
-	cout << "pepesi";
+	freq.push_back(std::make_pair(1, word)); 
     }
-    else 
-	freq.push_back(std::make_pair(word, 1)); 
+    else
+    {
+	for (size_t i{0}; i < freq.size(); ++i)
+	{
+	    truetyp = true;
+	    if (freq.at(i).second == word)
+	    {
+		freq.at(i).first++;
+		truetyp = false;
+		break;
+	    }
+	}
+	if(truetyp)
+	{
+	    freq.push_back(std::make_pair(1, word)); 
+	}	
+    }
 }
-
 
 void Wordlist::reversinglist()
 {
@@ -32,7 +49,6 @@ void Wordlist::reversinglist()
 	reverselist[(*it).second] = (*it).first;
     }
 }
-
 
 void Wordlist::outputwordsalfa()
 {
@@ -47,14 +63,15 @@ void Wordlist::outputwordsbyvalue()
     reversinglist();
     for( map<int, string>::iterator it=reverselist.begin(); it!=reverselist.end(); ++it)
     {
-	cout << (*it).first << ": " << (*it).second << endl;
+	cout << (*it).second << endl;
     }
 }
 
 void Wordlist::outputwordsbyfreq()
 {
-
-    cout << freq.at(0).second;
-
+    sort(freq.begin(), freq.end()); 
+    for (int i{(int)freq.size()-1}; i >= 0; i--)
+    {
+	cout << freq.at(i).first << ": " << freq.at(i).second  << endl;
+    }
 }
-
