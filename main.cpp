@@ -22,18 +22,13 @@ void clean_word(string & word)
 	    if(word.length() > i+3)
 	    {
 		if(word[i+2] == '\''  && word[i+3] == 's')
-		{
 		    word += "(!?;,:.\"\')";
-		}
 	    }
 	    word.erase(remove(word.begin(), word.end(), 's'), word.end());
 	    word.erase(remove(word.begin(), word.end(), '\''), word.end());
 	}
-
         if(word[i] == '-' && word[i+1] == '-')
-	{
 	    word += "(!?;,:.\"\')";
-	}
     }
 }
 
@@ -60,6 +55,7 @@ bool valid_word(string word)
 int main(int argc, const char* argv[])
 {
     int outputchooser {0};
+    int N{0};
     //  --- ARG Table ---
     vector<string> args(argv + 2,argv + argc);
 
@@ -68,7 +64,10 @@ int main(int argc, const char* argv[])
         if (args.at(0) == "-a")
 	    outputchooser = 1;
 	else if (argc == 4 && stoi(args.at(1)) >= 0 && args.at(0) == "-o")
+	{
+	    N = stoi(args.at(1));
 	    outputchooser = 2;
+	}
 	else if (args.at(0) == "-f")
 	    outputchooser = 3;
 	else	
@@ -100,7 +99,7 @@ int main(int argc, const char* argv[])
     if(outputchooser == 1)
 	test.outputwordsalfa();
     if(outputchooser == 2)
-	test.outputwordsbyvalue();
+	test.outputwordsbyvalue( N );
     if(outputchooser == 3)
 	test.outputwordsbyfreq();
     return 0;
