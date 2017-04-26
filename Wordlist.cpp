@@ -5,18 +5,37 @@
 #include <memory>
 #include <stdexcept>
 #include <algorithm>
+#include <sstream>
 
 using namespace std;
 
 void Wordlist::insertword(string word)
 {
+    bool truetyp1{true};
     bool truetyp{true};
-    map<string,int>::iterator it;
-    it = Wordsinlist.find(word); 
-    if((it == Wordsinlist.end()))
+
+    occurrence.push_back(word);
+
+    if (wordsinlist.size() == 0)
     {
-	Wordsinlist[word] = sizeofmap;	
-	sizeofmap++;
+	wordsinlist.push_back(std::make_pair(word,1)); 
+    }
+    else
+    {
+	for (size_t i{0}; i < freq.size(); ++i)
+	{
+	    truetyp1 = true;
+	    if (wordsinlist.at(i).first == word)
+	    {
+		wordsinlist.at(i).second++;
+		truetyp1 = false;
+		break;
+	    }
+	}
+	if(truetyp1)
+	{
+	    wordsinlist.push_back(std::make_pair(word,1)); 
+	}	
     }
     
     if (freq.size() == 0)
@@ -42,42 +61,46 @@ void Wordlist::insertword(string word)
     }
 }
 
-void Wordlist::reversinglist()
-{
-    for( map<string, int>::iterator it=Wordsinlist.begin(); it!=Wordsinlist.end(); ++it)
-    {
-	reverselist[(*it).second] = (*it).first;
-    }
-}
-
 void Wordlist::outputwordsalfa() // -a
 {
-    for( map<string, int>::iterator it=Wordsinlist.begin(); it!=Wordsinlist.end(); ++it)
-    {
-	cout << (*it).first << ": " << (*it).second << endl;
-    }
+    sort(wordsinlist.begin(), wordsinlist.end(), less<pair<string, int>>()); 
+    for_each(wordsinlist.begin(), wordsinlist.end(), [](pair<string, int> text)
+	     {
+		 cout << text.first << " " << text.second  << endl;
+	     });
 }
  
 void Wordlist::outputwordsbyvalue( int N ) // -o N
 {   
-/*    reversinglist();
-    for(map<int, string>::iterator it=reverselist.begin(); it!=reverselist.end(); ++it)
-    {
-	cout << (*it).second << endl;
-    }
-*/
-    
-    for_each(reversinglist.begin(), reversinglist.end(), []()
+    size_t c{0};
+    for_each(occurrence.begin(), occurrence.end(), [&N, &c](string text)
 	     {
-		 cout << " ";
+		 
+		 if (text.size() + c < N)
+		 {
+//		     cout << "(" << text.size() + c << ") ";
+		     cout << text << " ";
+		     c = text.size() + c + 1;
+		 }
+		 else
+		 {
+		     cout << endl;
+		     c = text.size() + 1;
+		     cout << text << " ";
+		 }
+		 
+		 // count char word
+		 // save int char from last word
+		 
 	     });
+    cout << endl;
 }
 
 void Wordlist::outputwordsbyfreq() // -f
 {
-    sort(freq.begin(), freq.end()); 
-    for (int i{(int)freq.size()-1}; i >= 0; i--)
-    {
-	cout << freq.at(i).first << ": " << freq.at(i).second  << endl;
-    }
+    sort(freq.begin(), freq.end(), greater<pair<int, string>>()); 
+    for_each(freq.begin(), freq.end(), [](pair<int, string> text)
+	     {
+		 cout << text.second << " " << text.first  << endl;
+	     });
 }

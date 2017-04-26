@@ -18,9 +18,8 @@ public:
 private:
     void reversinglist();
     std::vector<std::pair<int, std::string>> freq;
-    std::map<int, std::string> reverselist;
-    std::map<std::string, int> Wordsinlist;
-    int sizeofmap {1};
+    std::vector<std::pair<std::string, int>> wordsinlist;
+    std::vector<std::string> occurrence;
 };
 
 

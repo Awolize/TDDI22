@@ -76,7 +76,6 @@ int main(int argc, const char* argv[])
 		     "Usage: a.out FILE [-a] [-f] [-o N]\n") << endl;
 	    return 0;
 	}
-	
     } 
     else
     {
