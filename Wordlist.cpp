@@ -50,7 +50,7 @@ void Wordlist::reversinglist()
     }
 }
 
-void Wordlist::outputwordsalfa()
+void Wordlist::outputwordsalfa() // -a
 {
     for( map<string, int>::iterator it=Wordsinlist.begin(); it!=Wordsinlist.end(); ++it)
     {
@@ -58,16 +58,16 @@ void Wordlist::outputwordsalfa()
     }
 }
  
-void Wordlist::outputwordsbyvalue()
+void Wordlist::outputwordsbyvalue() // -o N
 {   
     reversinglist();
-    for( map<int, string>::iterator it=reverselist.begin(); it!=reverselist.end(); ++it)
+    for(map<int, string>::iterator it=reverselist.begin(); it!=reverselist.end(); ++it)
     {
 	cout << (*it).second << endl;
     }
 }
 
-void Wordlist::outputwordsbyfreq()
+void Wordlist::outputwordsbyfreq() // -f
 {
     sort(freq.begin(), freq.end()); 
     for (int i{(int)freq.size()-1}; i >= 0; i--)

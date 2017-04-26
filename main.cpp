@@ -57,29 +57,35 @@ bool valid_word(string word)
 	return true;
 }
 
-int main(int argc, char* argv[])
+int main(int argc, const char* argv[])
 {
-    int outputchoser {0};
+    int outputchooser {0};
     //  --- ARG Table ---
-    if (argc == 1)
-	throw invalid_argument("\nError: argument missing or invalid. \n" 
-			       "Usage: a.out FILE [-a] [-f] [-o]");
-    if (argc == 2)
-	throw invalid_argument("\nError: Second argument missing or invalid. \n" 
-			       "Usage: a.out FILE [-a] [-f] [-o]");
-    else if (argc == 3)
+    vector<string> args(argv + 2,argv + argc);
+
+    if (argc == 3 || args.at(0) == "-o")
     {
-	string tempstring = "-o";
-        if (tempstring == "-a")
-	    outputchoser = 1;
-	else if (tempstring == "-o")
-	    outputchoser = 2;
-	else if (tempstring == "-f")
-	    outputchoser = 3;
-	else
-	    throw invalid_argument("\nError: Third argument missing or invalid. \n" 
-				    "Usage: a.out FILE [-a] [-f] [-o]");
+        if (args.at(0) == "-a")
+	    outputchooser = 1;
+	else if (argc == 4 && stoi(args.at(1)) >= 0 && args.at(0) == "-o")
+	    outputchooser = 2;
+	else if (args.at(0) == "-f")
+	    outputchooser = 3;
+	else	
+	{
+	    cout << ("Error: Third argument missing or invalid. \n" 
+		     "Usage: a.out FILE [-a] [-f] [-o N]\n") << endl;
+	    return 0;
+	}
+	
     } 
+    else
+    {
+	cout << ("Error: Third argument missing or invalid. \n" 
+		 "Usage: a.out FILE [-a] [-f] [-o N]\n") << endl;
+	return 0;
+    }
+
     string filename = argv[1];
     ifstream fin(filename); 
     Wordlist test;
@@ -91,11 +97,11 @@ int main(int argc, char* argv[])
 	    }
 	});
     fin.close();
-    if(outputchoser == 1)
+    if(outputchooser == 1)
 	test.outputwordsalfa();
-    if(outputchoser == 2)
+    if(outputchooser == 2)
 	test.outputwordsbyvalue();
-    if(outputchoser == 3)
+    if(outputchooser == 3)
 	test.outputwordsbyfreq();
     return 0;
 }
