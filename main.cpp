@@ -52,37 +52,31 @@ bool valid_word(string word)
 	return true;
 }
 
-int main(int argc, const char* argv[])
-{
-    int outputchooser {0};
-    size_t N{0};
-    //  --- ARG Table ---
-    vector<string> args(argv + 2,argv + argc);
-
-    if (argc == 1) 	
+int Check_args(vector<string> & args, int & argc, size_t & N)
+{ 
+    if (argc == 2) 	
     {
-	cout << ("Error: Third argument missing or invalid. \n" 
+	cout << ("Error: Second argument missing or invalid. \n" 
 		 "Usage: a.out FILE [-a] [-f] [-o N]\n") << endl;
 	return 1;
     }
-	
-    else if (argc == 2) 	
+    if (argc == 3 || args.at(2) == "-o")
     {
-	cout << ("Error: Third argument missing or invalid. \n" 
-		 "Usage: a.out FILE [-a] [-f] [-o N]\n") << endl;
-	return 1;
-    }
-    else if (argc == 3 || args.at(0) == "-o")
-    {
-        if (args.at(0) == "-a")
-	    outputchooser = 1;
-	else if (argc == 4 && stoi(args.at(1)) >= 0 && args.at(0) == "-o")
+        if (args.at(2) == "-a")
+	    return 2;
+	else if (argc == 4 && args.at(2) == "-o" && stoi(args.at(3)) >= 0)
 	{
-	    N = stoi(args.at(1));
-	    outputchooser = 2;
+	    N = stoi(args.at(3));
+	    return 3;
 	}
-	else if (args.at(0) == "-f")
-	    outputchooser = 3;
+	else if (args.at(2) == "-f")
+	    return 4;
+	else if (args.at(2) == "-o")
+	{
+	    cout << ("Error: Fourth argument missing or invalid. \n" 
+		     "Usage: a.out FILE [-a] [-f] [-o N]\n") << endl;
+	    return 1;
+	}
 	else	
 	{
 	    cout << ("Error: Third argument missing or invalid. \n" 
@@ -90,12 +84,39 @@ int main(int argc, const char* argv[])
 	    return 1;
 	}
     } 
+    else if (argc > 3) 	
+    {
+	cout << ("Error: Too many arguments. \n" 
+		 "Usage: a.out FILE [-a] [-f] [-o N]\n") << endl;
+	return 1;
+    }
     else
     {
 	cout << ("Error: Third argument missing or invalid. \n" 
 		 "Usage: a.out FILE [-a] [-f] [-o N]\n") << endl;
 	return 1;
     }
+
+}
+
+int main(int argc, const char* argv[])
+{
+    int outputchooser {0};
+    size_t N{0};
+    //  --- ARG Table ---
+    if (argc == 1) 	
+    {
+	cout << ("Error: No arguments given. \n" 
+		 "Usage: a.out FILE [-a] [-f] [-o N]\n") << endl;
+	return 1;
+    }
+
+    vector<string> args(argv,argv + argc);
+
+    outputchooser = Check_args(args, argc, N);
+    
+    if (outputchooser == 1)
+	return 1;
 
     string filename = argv[1];
     ifstream fin(filename); 
@@ -108,11 +129,12 @@ int main(int argc, const char* argv[])
 	    }
 	});
     fin.close();
-    if(outputchooser == 1)
+
+    if(outputchooser == 2)
 	test.outputwordsalfa();
-    else if(outputchooser == 2)
-	test.outputwordsbyvalue( N );
     else if(outputchooser == 3)
+	test.outputwordsbyvalue( N );
+    else if(outputchooser == 4)
 	test.outputwordsbyfreq();
     return 0;
 }
