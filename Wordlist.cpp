@@ -6,6 +6,7 @@
 #include <stdexcept>
 #include <algorithm>
 #include <sstream>
+#include <iomanip>
 
 using namespace std;
 
@@ -22,7 +23,7 @@ void Wordlist::insertword(string word)
     }
     else
     {
-	for (size_t i{0}; i < freq.size(); ++i)
+	for (size_t i{0}; i < wordsinlist.size(); ++i)
 	{
 	    truetyp1 = true;
 	    if (wordsinlist.at(i).first == word)
@@ -66,10 +67,10 @@ void Wordlist::outputwordsalfa() // -a
     sort(wordsinlist.begin(), wordsinlist.end(), less<pair<string, int>>()); 
     for_each(wordsinlist.begin(), wordsinlist.end(), [](pair<string, int> text)
 	     {
-		 cout << text.first << " " << text.second  << endl;
+		 cout << left << setw(5) << text.first << " " << text.second  << endl;
 	     });
 }
- 
+
 void Wordlist::outputwordsbyvalue( size_t N ) // -o N
 {   
     size_t c{0};
@@ -97,6 +98,8 @@ void Wordlist::outputwordsbyfreq() // -f
     sort(freq.begin(), freq.end(), greater<pair<int, string>>()); 
     for_each(freq.begin(), freq.end(), [](pair<int, string> text)
 	     {
-		 cout << text.second << " " << text.first  << endl;
+		 cout << setw(5) << text.second << " " << text.first  << endl;
 	     });
 }
+
+//void Wordlist::Legnth_Word(Legnth)
