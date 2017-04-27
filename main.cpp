@@ -15,21 +15,21 @@ void clean_word(string & word)
     size_t str_l = word.find_last_not_of("!?;,:.\"\')");
     word.erase(str_l+1, word.length());    
  
-    for (unsigned int i{0}; i < word.length(); i++)
-    {
-	if(word[i] == '\'' && word[i+1] == 's')
-	{
-	    if(word.length() > i+3)
-	    {
-		if(word[i+2] == '\''  && word[i+3] == 's')
-		    word += "(!?;,:.\"\')";
-	    }
-	    word.erase(remove(word.begin(), word.end(), 's'), word.end());
-	    word.erase(remove(word.begin(), word.end(), '\''), word.end());
-	}
-        if(word[i] == '-' && word[i+1] == '-')
-	    word += "(!?;,:.\"\')";
-    }
+    for_each(word.begin(), word.end(), [&word](unsigned int i)
+	     {
+		 if(word[i] == '\'' && word[i+1] == 's')
+		 {
+		     if(word.length() > i+3)
+		     {
+			 if(word[i+2] == '\''  && word[i+3] == 's')
+			     word += "(!?;,:.\"\')";
+		     }
+		     word.erase(remove(word.begin(), word.end(), 's'), word.end());
+		     word.erase(remove(word.begin(), word.end(), '\''), word.end());
+		 }
+		 if(word[i] == '-' && word[i+1] == '-')
+		     word += "(!?;,:.\"\')";
+	     });
 }
 
 bool valid_word(string word)
