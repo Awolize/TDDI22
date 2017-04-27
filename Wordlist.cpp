@@ -64,15 +64,19 @@ void Wordlist::insertword(string word)
 
 void Wordlist::outputwordsalfa() // -a
 {
+    size_word();
+    size_t temp{longest_word};
+    temp = longest_word;
     sort(wordsinlist.begin(), wordsinlist.end(), less<pair<string, int>>()); 
-    for_each(wordsinlist.begin(), wordsinlist.end(), [](pair<string, int> text)
+    for_each(wordsinlist.begin(), wordsinlist.end(), [&temp](pair<string, int> text)
 	     {
-		 cout << left << setw(5) << text.first << " " << text.second  << endl;
+		 cout << left << setw(temp) << text.first << " " << text.second  << endl;
 	     });
 }
 
 void Wordlist::outputwordsbyvalue( size_t N ) // -o N
 {   
+
     size_t c{0};
     for_each(occurrence.begin(), occurrence.end(), [&N, &c](string text)
 	     {
@@ -95,14 +99,23 @@ void Wordlist::outputwordsbyvalue( size_t N ) // -o N
 
 void Wordlist::outputwordsbyfreq() // -f
 {
+    size_word();
+    size_t temp{longest_word};
     sort(freq.begin(), freq.end(), greater<pair<int, string>>()); 
-    for_each(freq.begin(), freq.end(), [](pair<int, string> text)
+
+    for_each(freq.begin(), freq.end(), [&temp](pair<int, string> text)
 	     {
-		 cout << setw(5) << text.second << " " << text.first  << endl;
+		 cout << setw(temp) << text.second << " " << text.first  << endl;
 	     });
 }
 
-void Wordlist::Legnth_Word()
+void Wordlist::size_word()
 {
-    cout << Longest_word;
+    size_t temp{longest_word};
+    for_each(freq.begin(), freq.end(), [&temp](pair<int, string> word)
+	     {
+		 if(word.second.size() > temp)
+		     temp = word.second.size();
+	     });
+    longest_word = temp;
 }

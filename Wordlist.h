@@ -15,13 +15,13 @@ public:
     void outputwordsalfa();
     void outputwordsbyvalue(size_t);
     void outputwordsbyfreq();
-    void Legnth_Word();
+    void size_word();
 private:
     void reversinglist();
     std::vector<std::pair<int, std::string>> freq;
     std::vector<std::pair<std::string, int>> wordsinlist;
     std::vector<std::string> occurrence;
-    int longest_word{0};
+    size_t longest_word{0};
 };
 
 
