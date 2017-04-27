@@ -12,46 +12,33 @@ using namespace std;
 
 void Wordlist::insertword(string word)
 {
-    bool truetyp1{true};
-    bool truetyp{true};
-
-    vector<pair<string, int>> word_temp;
-    vector<pair<int, string>> freq_temp;
-
     occurrence.push_back(word);
 
     if (wordsinlist.size() == 0)
     {
 	wordsinlist.push_back(std::make_pair(word,1)); 
-	//cout << "hej";
     }
     else
     {
-	//cout << wordsinlist.size();
-	
-	for_each(wordsinlist.begin(), wordsinlist.end(), [&truetyp1, &word, &word_temp](pair<string, int> vec)
+	vector<pair<string, int>> word_temp{wordsinlist};
+	int i{0};
+	bool found{false};
+	for_each(wordsinlist.begin(), wordsinlist.end(), [&found, &word, &word_temp, &i](pair<string, int> p)
 		 {
-		     truetyp1 = true;
-
-		     // cout << "hejsan";
-		     if(vec.first == word)
+		     if(p.first == word)
 		     {
-			 
-			 
-			 cout << vec.second << endl;
-			 truetyp1 = false;
-			 
-//			 return 0;
+			 word_temp.at(i).second++;
+			 found = true;
 		     }
-		     
+		     ++i;
 		 });
-	if(truetyp1)
+	wordsinlist = word_temp;
+	if(found == false)
 	{
-	    
-	    wordsinlist.push_back(std::make_pair(word,1)); 
-	}	
-	copy(word_temp.begin(), word_temp.end(), wordsinlist.begin());
+	    wordsinlist.push_back(std::make_pair(word, 1)); 
+	}
     }
+
     
     if (freq.size() == 0)
     {
@@ -59,26 +46,61 @@ void Wordlist::insertword(string word)
     }
     else
     {
-	for_each(freq.begin(), freq.end(), [&truetyp, &word](pair<int, string> vec1)
+	vector<pair<int, string>> freq_temp{freq};
+	int i{0};
+	bool found{false};
+	for_each(freq.begin(), freq.end(), [&found, &word, &freq_temp, &i](pair<int, string> p)
 		 {
-		     truetyp = true;
-		     if(vec1.second == word)
+		     if(p.second == word)
 		     {
-			 //cout << vec1.first << endl;
-			 vec1.first++;
-			 truetyp = false;
-			 //return 0;
+			 freq_temp.at(i).first++;
+			 found = true;
 		     }
-		     
+		     ++i;
 		 });
-	if(truetyp)
+	freq = freq_temp;
+	if(found == false)
 	{
 	    freq.push_back(std::make_pair(1, word)); 
 	}
-	//else if (
     }
 }
+// -------------------------------
 
+
+
+/*
+
+   else
+    {
+	vector<pair<int, string>> freq_temp{freq};
+
+	int i{0};
+	bool found{false};
+	for_each(freq.begin(), freq.end(), [&found, &word, &freq_temp, &i](pair<int, string> vec1)
+		 {
+		     
+		     found = false;
+		     if(vec1.second == word)
+		     {
+			 freq_temp.at(i).first++;
+			 found = true;
+			 return 0;
+		     }
+		     i++;
+		 });
+	freq = freq_temp;
+	if(!found)
+	    freq.push_back(std::make_pair(1, word)); 
+	
+    }
+
+
+  page  3
+  the   2
+  body  1
+  title 1
+*/
 void Wordlist::outputwordsalfa() // -a
 {
     size_word();
