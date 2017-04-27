@@ -102,4 +102,7 @@ void Wordlist::outputwordsbyfreq() // -f
 	     });
 }
 
-//void Wordlist::Legnth_Word(Legnth)
+void Wordlist::Legnth_Word()
+{
+    cout << Longest_word;
+}

@@ -4,7 +4,7 @@
 #include <sstream>
 #include <locale>
 #include "Wordlist.h"
-
+// Hej
 using namespace std;
 
 void clean_word(string & word)
