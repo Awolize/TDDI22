@@ -13,7 +13,7 @@ class Wordlist
 public:
     void insertword(std::string);
     void outputwordsalfa();
-    void outputwordsbyvalue(int);
+    void outputwordsbyvalue(size_t);
     void outputwordsbyfreq();
 private:
     void reversinglist();

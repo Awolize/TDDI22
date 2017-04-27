@@ -55,11 +55,24 @@ bool valid_word(string word)
 int main(int argc, const char* argv[])
 {
     int outputchooser {0};
-    int N{0};
+    size_t N{0};
     //  --- ARG Table ---
     vector<string> args(argv + 2,argv + argc);
 
-    if (argc == 3 || args.at(0) == "-o")
+    if (argc == 1) 	
+    {
+	cout << ("Error: Third argument missing or invalid. \n" 
+		 "Usage: a.out FILE [-a] [-f] [-o N]\n") << endl;
+	return 1;
+    }
+	
+    else if (argc == 2) 	
+    {
+	cout << ("Error: Third argument missing or invalid. \n" 
+		 "Usage: a.out FILE [-a] [-f] [-o N]\n") << endl;
+	return 1;
+    }
+    else if (argc == 3 || args.at(0) == "-o")
     {
         if (args.at(0) == "-a")
 	    outputchooser = 1;
@@ -74,14 +87,14 @@ int main(int argc, const char* argv[])
 	{
 	    cout << ("Error: Third argument missing or invalid. \n" 
 		     "Usage: a.out FILE [-a] [-f] [-o N]\n") << endl;
-	    return 0;
+	    return 1;
 	}
     } 
     else
     {
 	cout << ("Error: Third argument missing or invalid. \n" 
 		 "Usage: a.out FILE [-a] [-f] [-o N]\n") << endl;
-	return 0;
+	return 1;
     }
 
     string filename = argv[1];
@@ -97,9 +110,9 @@ int main(int argc, const char* argv[])
     fin.close();
     if(outputchooser == 1)
 	test.outputwordsalfa();
-    if(outputchooser == 2)
+    else if(outputchooser == 2)
 	test.outputwordsbyvalue( N );
-    if(outputchooser == 3)
+    else if(outputchooser == 3)
 	test.outputwordsbyfreq();
     return 0;
 }

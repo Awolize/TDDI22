@@ -70,7 +70,7 @@ void Wordlist::outputwordsalfa() // -a
 	     });
 }
  
-void Wordlist::outputwordsbyvalue( int N ) // -o N
+void Wordlist::outputwordsbyvalue( size_t N ) // -o N
 {   
     size_t c{0};
     for_each(occurrence.begin(), occurrence.end(), [&N, &c](string text)
@@ -78,7 +78,6 @@ void Wordlist::outputwordsbyvalue( int N ) // -o N
 		 
 		 if (text.size() + c < N)
 		 {
-//		     cout << "(" << text.size() + c << ") ";
 		     cout << text << " ";
 		     c = text.size() + c + 1;
 		 }
@@ -88,9 +87,6 @@ void Wordlist::outputwordsbyvalue( int N ) // -o N
 		     c = text.size() + 1;
 		     cout << text << " ";
 		 }
-		 
-		 // count char word
-		 // save int char from last word
 		 
 	     });
     cout << endl;
