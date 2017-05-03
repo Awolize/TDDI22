@@ -1,0 +1,9 @@
+Bra jobbat med labben!
+
+Det finns ett par saker som kunde varit bättre men ingenting som ni skall komplettera i denna labb.
+
+Ni har utkommenterad kod kvar i en fil, detta är typiskt inte bra.
+
+Er main funktion kunde varit renare och lite lättare att följa. Men ni har redan gjort ett mycket bra jobb för att göra main läsbar.
+
+Ni hade ganska hög frekvens av for_each funktionerna vilket ibland kan lösas med en bättre vald algoritm även om det är en bra go-to.
